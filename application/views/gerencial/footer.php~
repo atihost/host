@@ -1,0 +1,27 @@
+
+ </div> 
+
+<!-- Inicio Fooder-->
+ <footer class="main-footer">
+ 
+ 
+
+        <div class="pull-right hidden-xs">
+          Página renderizada em <strong>0.0589</strong> segundos.
+        </div>
+        <strong>&copy; 2016 -  <a href="http://atihost.com.br" target="_blank">ATI-HOST</a>.</strong>
+      </footer>
+
+ 
+ <script>
+    var resizefunc = [];
+    var base_url = '<?= base_url()?>';
+</script>
+ <script src="<?= base_url() ?>css/bootstrap/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="<?= base_url() ?>css/plugins/fastclick/fastclick.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="<?= base_url() ?>css/dist/js/app.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="<?= base_url() ?>/css/dist/js/demo.js"></script>
+    

@@ -1,0 +1,78 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: orlando
+ * Date: 25/11/2017
+ * Time: 11:03
+ */
+
+class Categorias extends CI_Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
+        check_session();
+        $this->load->model('Categorias_model');
+    }
+
+    public function index(){
+        $data = [
+            'descricao' => $this->Categorias_model->get_all(),
+            'config' => $this->Config_model->get_all()
+        ];
+        $this->load->view('admin/categorias', $data);
+    }
+
+    public function novo(){
+        $data = [
+            "config" => $this->Config_model->get_all()
+        ];
+        $this->load->view('admin/categoria-novo', $data);
+    }
+
+    public function editar(){
+        $id = get_param(1);
+        $data = [
+            'descricao' => $this->Categorias_model->get_by_id($id),
+            'config' => $this->Config_model->get_all()
+        ]; $image_path = 'img/categorias/';
+
+        if($_FILES['categoria_img']['name'] != ''){
+            $this->load->helper('upload');
+            $config_icon = upload_file($image_path, 'cliente_img');
+            $_POST['cliente_img'] = $image_path.$config_icon;
+        }
+        $this->load->view('admin/categoria-editar', $data);
+    }
+
+    public function gravar(){
+
+ $image_path = 'img/cliente/';
+
+        if($_FILES['categoria_img']['name'] != ''){
+            $this->load->helper('upload');
+            $config_icon = upload_file($image_path, 'cliente_img');
+            $_POST['categoria_img'] = $image_path.$config_icon;
+        }
+        if(isset($_POST['descricao']) && !empty($_POST['descricao'])){
+            $_POST['descricao'] = remove_spaces($_POST['descricao']);
+        }
+
+        if(isset($_POST['id_categoria'])){
+            $id = $_POST['id_categoria'];
+            $this->Categorias_model->gravar($_POST, $id);
+            $this->session->set_flashdata('true', 'Categoria Alterado com Sucesso!');
+        }else{
+            $this->Categoria_model->gravar($_POST);
+            $this->session->set_flashdata('true', 'Categoria Adicionado com Sucesso!');
+        }
+        redirect('categorias/');
+    }
+
+    public function remover(){
+        $id = $_POST['id_categorias'];
+        $this->Categorias_model->remover($id);
+        echo true;
+    }
+
+}
